@@ -8,7 +8,7 @@ const withAuth = require('../../utils/auth');
 router.get('/', withAuth, async (req, res) => {
     try {
         if (!req.session.logged_in) {
-            return res.redirect('/login');
+            return res.redirect('/dashboard');
         }
 
         const userId = req.session.user_id;
