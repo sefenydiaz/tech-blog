@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = userData.id; // It is nice to save user id in the session in case you need to tie that user to something they create
-
+    req.session.username = userData.name;
       res.status(200).json(userData);
     });
   } catch (error) {
@@ -62,7 +62,7 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = userData.checkPassword(req.body.password);
     if (!validPassword) {
       res
         .status(400)
@@ -72,6 +72,7 @@ router.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
       req.session.userId = userData.id;
+      req.session.username = userData.name;
 
       res.status(200).json({ message: "login!!" });
     });

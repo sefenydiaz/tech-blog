@@ -8,10 +8,10 @@
   <div class="col-md-6">
     <h3>Create a New Blogpost:</h3>
 
-    <form class="form new-project-form">
+    <form class="form new-blog-form">
       <div class="form-group">
         <label for="project-name">blogpost title:</label>
-        <input class="form-input" type="text" id="project-name" name="project-name" />
+        <input class="form-input" type="text" id="blogpost-title" name="blogpost-title" />
       </div>
       {{!-- <div class="form-group">
         <label for="project-funding">needed funding ($):</label>
@@ -19,14 +19,14 @@
       </div> --}}
       <div class="form-group">
         <label for="project-desc">content:</label>
-        <textarea class="form-input" id="project-desc" name="project-desc"></textarea>
+        <textarea class="form-input" id="content" name="project-desc"></textarea>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Create</button>
       </div>
     </form>
   </div>
-
+{{log blogposts}}
   {{#if blogposts.length}}
   <div class="col-md-6 project-list">
     <h3>Your Blogposts:</h3>
@@ -34,7 +34,7 @@
     {{#each blogposts as |blogpost|}}
     <div class="row mb-2">
       <div class="col-md-8">
-        <h4><a href="/dashboard/{{blogpost.id}}">{{blogpost.name}}</a></h4>
+        <h4><a href="/dashboard/{{blogpost.id}}">{{blogpost.title}}</a></h4>
       </div>
       <div class="col-md-4">
         <button class="btn btn-sm btn-danger" data-id="{{blogpost.id}}">DELETE</button>
@@ -46,3 +46,4 @@
 </div>
 
 <script src="./js/dashboard.js"></script>
+<script src="./js/createblog.js"></script>

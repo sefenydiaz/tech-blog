@@ -1,38 +1,13 @@
-// NEED TO GET USERS BLOGPOSTS
 const router = require('express').Router();
 const { BlogPost, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-//CRUD
-//GET all user blogposts
-router.get('/', withAuth, async (req, res) => {
-    try {
-        if (!req.session.logged_in) {
-            return res.redirect('/dashboard');
-        }
-
-        const userId = req.session.user_id;
-
-        const blogpostData = await BlogPost.findAll({
-            where: { user_id: userId },
-            include: [ Comment ]
-        });
-
-        const blogposts = blogpostData.map((blogpost) => blogpost.get({ plain: true}));
-
-        res.render('dashboard', {
-            blogposts,
-        });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 router.post('/', withAuth, async (req, res) => {
     try {
+        console.log('creating blogpost')
       const newBlogPost = await BlogPost.create({
         ...req.body,
-        user_id: req.session.user_id,
+        user_id: req.session.userId,
       });
   
       res.status(200).json(newBlogPost);
@@ -46,7 +21,7 @@ router.post('/', withAuth, async (req, res) => {
       const blogpostData = await BlogPost.destroy({
         where: {
           id: req.params.id,
-          user_id: req.session.user_id,
+          user_id: req.session.userId,
         },
       });
   
@@ -61,5 +36,4 @@ router.post('/', withAuth, async (req, res) => {
     }
   });
   
-
-  module.exports = router;
+module.exports = router;
