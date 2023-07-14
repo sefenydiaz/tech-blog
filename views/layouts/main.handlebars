@@ -5,23 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Tech Blog</title>
-  {{!-- <link rel="stylesheet" href="/css/jass.css"> --}}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
   <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
-      <h1>
-        <a href="/">The Tech Blog</a>
-      </h1>
-      <nav>
+     
+     
         <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/home">home</a> |
+        {{!--  make buttons for home, title, blogpost title --}}
+         <nav class="navbar">
+        <a href="/"><button class="home-btn" id="home">home</button></a> 
+         <h1 class="title">
+        <a href="/"><button class="title-btn" id="title">The Tech Blog</button></a>
+      </h1>
+        {{#if loggedIn}}
         <button class="no-button" id="logout">logout</button>
         {{else}}
-        <a href="/login">login</a>
+       
+        <a href="/login"><button class="login-btn" id="login">login</button></a>
+       
         {{/if}}
       </nav>
     </header>
@@ -33,9 +38,9 @@
       
     </footer>
   </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   <!-- Render script for logged in users only -->
-  {{#if logged_in}}
+  {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
 </body>

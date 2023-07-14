@@ -4,13 +4,13 @@ const Comment = require('./Comment');
 
 // ASSOCIATIONS
 
-BlogPost.hasMany(Comment, {
-    foreignKey: "blog_id",
+BlogPost.belongsTo(User, {
+    foreignKey: "user_id",
     onDelete: "CASCADE"
 }) 
 
-User.hasMany(BlogPost, {
-    foreignKey: "user_id",
+BlogPost.hasMany(Comment, {
+    foreignKey: "blog_id",
     onDelete: "CASCADE"
 })
 

@@ -1,0 +1,42 @@
+* {
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.title {
+margin: 10px;
+text-align: center;
+}
+
+.navbar {
+    background-color: black;
+}
+#title:hover {
+    background-color:cornflowerblue
+}
+
+#home {
+    margin: 10px;
+}
+#home:hover {
+    background-color:cornflowerblue
+}
+
+#login {
+    margin: 10px;
+}
+#login:hover {
+    background-color:cornflowerblue
+}
+
+#logout {
+    margin: 10px;
+}
+#logout:hover {
+    background-color:cornflowerblue
+}
+
+.form-group {
+    margin: 10px
+}
+body {
+    background-color:seagreen;
+}

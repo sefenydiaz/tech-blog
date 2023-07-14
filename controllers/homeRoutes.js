@@ -9,34 +9,16 @@ router.get('/', async (req, res) => {
     try {
       
       const blogpostData = await BlogPost.findAll({
-        include: [ Comment ]
+        include: [ User ]
       });
   
       
       const blogposts = blogpostData.map((blogpost) => blogpost.get({ plain: true }));
-  
+      console.log(blogposts)
       
       res.render('homepage', { 
         blogposts, 
-        logged_in: req.session.logged_in 
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-
-  // GET blogpost by id
-  router.get('/blogpost/:id', async (req, res) => {
-    try {
-      const blogpostData = await BlogPost.findByPk(req.params.id, {
-        include: [ Comment ]
-      });
-  
-      const blogpost = blogpostData.get({ plain: true });
-  
-      res.render('blogpost', {
-        ...blogpost,
-        logged_in: req.session.logged_in
+        loggedIn: req.session.loggedIn 
       });
     } catch (err) {
       res.status(500).json(err);
@@ -44,34 +26,34 @@ router.get('/', async (req, res) => {
   });
 
   //withAUTH GET ROUTE NEEDED !
-  router.get('/dashboard', withAuth, async (req, res) => {
-    try {
-      // Find the logged in user based on the session ID
-      const userData = await User.findByPk(req.session.user_id, {
-        attributes: { exclude: ['password'] },
-        include: [{ model: BlogPost }],
-      });
+  // router.get('/dashboard', withAuth, async (req, res) => {
+  //   try {
+  //     // Find the logged in user based on the session ID
+  //     const userData = await User.findByPk(req.session.user_id, {
+  //       attributes: { exclude: ['password'] },
+  //       include: [{ model: BlogPost }],
+  //     });
   
-      const user = userData.get({ plain: true });
+  //     const user = userData.get({ plain: true });
   
-      res.render('dashboard', {
-        ...user,
-        logged_in: true
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+  //     res.render('dashboard', {
+  //       ...user,
+  //       logged_in: true
+  //     });
+  //   } catch (err) {
+  //     res.status(500).json(err);
+  //   }
+  // });
 
-  router.post('/', async (req, res) => {
-    const newBlogPost = await BlogPost.create(req.body)
-    res.json(newBlogPost)
-  })
+  // router.post('/', async (req, res) => {
+  //   const newBlogPost = await BlogPost.create(req.body)
+  //   res.json(newBlogPost)
+  // })
 
 
   router.get('/login', (req, res) => {
     // If the user is already logged in, redirect the request to another route
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
       res.redirect('/dashboard');
       return;
     }
