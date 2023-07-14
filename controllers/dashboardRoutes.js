@@ -29,6 +29,24 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // need a route for /:id to search for specific blogpost
+
+router.get('/:id', async (req, res) => {
+  try {
+    const blogData = await BlogPost.findByPk(req.params.id, {
+      include: [ User, {model: Comment, include: [User]} ]
+    })
+    const blog = blogData.get({ plain : true})
+    console.log(blog)
+    res.render('blog', {
+      ...blog,
+      loggedIn: req.session.loggedIn,
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
+});
+
 // need a blogpost hb for single blogposts
 // api route for comments on single blogposts
 // update and delete

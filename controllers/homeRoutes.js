@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     try {
       
       const blogpostData = await BlogPost.findAll({
-        include: [ Comment ]
+        include: [ User ]
       });
   
       
@@ -19,24 +19,6 @@ router.get('/', async (req, res) => {
       res.render('homepage', { 
         blogposts, 
         loggedIn: req.session.loggedIn 
-      });
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-
-  // GET blogpost by id
-  router.get('/blogpost/:id', async (req, res) => {
-    try {
-      const blogpostData = await BlogPost.findByPk(req.params.id, {
-        include: [ Comment ]
-      });
-  
-      const blogpost = blogpostData.get({ plain: true });
-  
-      res.render('blogpost', {
-        ...blogpost,
-        loggedIn: req.session.loggedIn
       });
     } catch (err) {
       res.status(500).json(err);
