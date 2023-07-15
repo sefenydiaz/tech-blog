@@ -1,8 +1,8 @@
 const text = document.getElementById('comment');
-const button = document.getElementById('comment-btn');
 const blog_id = document.getElementById('blogId').value;
 
-async function createComment() {
+async function createComment(event) {
+    event.preventDefault();
     const content = text.value.trim()
     if (content) {
         const response = await fetch('/api/comments', {
@@ -21,5 +21,6 @@ async function createComment() {
 }
 
 
-
-button.addEventListener('click', createComment)
+document
+.getElementById('comment-btn')
+.addEventListener('click', createComment)
